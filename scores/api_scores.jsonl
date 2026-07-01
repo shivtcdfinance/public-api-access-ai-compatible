@@ -1,0 +1,5 @@
+{"name": "OpenWeatherMap", "score": 1, "timestamp": "2026-07-01T04:26:06Z", "reason": "200 OK, valid forecast"}
+{"name": "OpenWeatherMap", "score": 1, "timestamp": "2026-07-01T04:26:15Z", "reason": "200 OK, valid forecast"}
+{"name": "ipinfo.io", "score": 1, "timestamp": "2026-07-01T04:26:15Z", "reason": "200 OK, geo data"}
+{"name": "randomdead.xyz", "score": -1, "timestamp": "2026-07-01T04:26:15Z", "reason": "DNS failure"}
+{"name": "RapidAPI-Rate-Limited", "score": 0, "timestamp": "2026-07-01T04:26:15Z", "reason": "429 Too Many Requests"}
