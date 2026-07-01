@@ -96,7 +96,7 @@ Built by <a href="https://github.com/shivtcdfinance">Shivansh Rao</a> · Data fr
 let apis = [];
 let categories = new Set();
 
-fetch('https://raw.githubusercontent.com/shivtcdfinance/api-canon/main/api_canon.min.json')
+fetch('../../../public-api-access-ai-compatible/main/api_access.min.json')
   .then(r => r.json())
   .then(data => {
     apis = data;

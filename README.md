@@ -1,13 +1,45 @@
-# API Canon — The AI-Ready Public API Directory
+# Public API Access — AI Compatible
 
-[![APIs](https://img.shields.io/badge/APIs-1%2C851-blue?style=flat-square&logo=json)](https://github.com/shivtcdfinance/api-canon)
-[![Trusted](https://img.shields.io/badge/trusted-252-green?style=flat-square&logo=shield)](https://github.com/shivtcdfinance/api-canon#trust-rating-system)
-[![Size](https://img.shields.io/badge/size-472KB-orange?style=flat-square)](https://github.com/shivtcdfinance/api-canon)
+[![APIs](https://img.shields.io/badge/APIs-1%2C850-blue?style=flat-square&logo=json)](https://github.com/shivtcdfinance/public-api-access-ai-compatible)
+[![Trusted](https://img.shields.io/badge/trusted-252-green?style=flat-square&logo=shield)](https://github.com/shivtcdfinance/public-api-access-ai-compatible#trust-rating-system)
+[![Size](https://img.shields.io/badge/size-470KB-orange?style=flat-square)](https://github.com/shivtcdfinance/public-api-access-ai-compatible)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square)](LICENSE)
-[![Pages](https://img.shields.io/badge/demo-live-ff69b4?style=flat-square)](https://shivtcdfinance.github.io/api-canon/)
+[![Pages](https://img.shields.io/badge/demo-live-ff69b4?style=flat-square)](https://shivtcdfinance.github.io/public-api-access-ai-compatible/)
 
-> **1,851 curated public APIs — trust-rated, AI-ready, and 472 KB small.**
+> **1,850 curated public APIs — trust-rated, AI-ready, and 470 KB small.**
 > The first API directory built for both humans AND AI agents.
+
+---
+
+## 🚀 Quick Start
+
+### For AI Agents (primary use case)
+
+```bash
+# Load directly into any LLM context
+curl -s https://raw.githubusercontent.com/shivtcdfinance/public-api-access-ai-compatible/main/api_access.min.json
+```
+
+**Claude / Cursor / Copilot:**
+```
+Load this file: https://raw.githubusercontent.com/shivtcdfinance/public-api-access-ai-compatible/main/ai_prompt.txt
+Then ask: "Find me a free HTTPS API for currency exchange rates"
+```
+
+**Python:**
+```python
+import json, urllib.request
+
+url = "https://raw.githubusercontent.com/shivtcdfinance/public-api-access-ai-compatible/main/api_access.min.json"
+apis = json.loads(urllib.request.urlopen(url).read())
+
+# Safe APIs: trusted + no auth + HTTPS
+safe = [a for a in apis if a['trust'] == 'trusted' and a['auth'] == 'no' and a['https']]
+weather = [a for a in safe if 'weather' in a['name'].lower()]
+print(weather[0]['url'])  # Ready to call
+```
+
+### For Humans — [Live Demo](https://shivtcdfinance.github.io/public-api-access-ai-compatible/)
 
 ---
 
@@ -38,7 +70,7 @@ Open the demo, type "weather" or "crypto", filter by trust rating. Instant.
 
 ```bash
 # Search for APIs by keyword
-curl -s https://raw.githubusercontent.com/shivtcdfinance/api-canon/main/api_canon.min.json \
+curl -s https://raw.githubusercontent.com/shivtcdfinance/public-api-access-ai-compatible/main/api_access.min.json \
   | jq '.[] | select(.name | test("weather"; "i")) | {name, trust, auth}'
 ```
 
@@ -132,12 +164,25 @@ Every API domain is classified automatically:
 
 | File | Size | Use |
 |---|---|---|
-| `api_canon.min.json` | 472 KB | **Primary** — load this into your app/AI agent |
-| `api_canon.full.json` | 1.2 MB | Full version with category/auth indexes |
+| `api_access.min.json` | 470 KB | **Primary** — load this into your app/AI agent |
+| `api_access.full.json` | 770 KB | Full version with category/auth indexes |
 | `docs/index.html` | — | GitHub Pages searchable demo |
 | `examples/` | — | Python, curl, Node.js, AI prompt examples |
 | `scripts/` | — | Rebuild from upstream sources |
 | `tests/` | — | Schema + trust + health validation |
+
+## 🔄 Auto-Sync Pipeline
+
+This repo is kept in sync from a central curated database:
+
+```
+Central DB (local, private)
+  └─ health_check.py   → Weekly: pings APIs, prunes dead ones
+  └─ sync_to_github.py → Sanitizes & pushes clean data here
+      ✓ Strips personal API keys / private entries
+      ✓ Only marcelscruz + public-api-lists sources
+      ✓ Zero personal data ever touches this repo
+```
 
 ---
 
