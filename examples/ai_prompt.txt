@@ -1,0 +1,28 @@
+# How to use API Canon with your AI agent
+
+## Structure
+This file contains the complete API Canon JSON database. It has 1,851 curated public APIs, each with:
+- `name`, `desc`, `cat` — what it is
+- `trust` — how safe it is (trusted > likely_safe > marketplace > unknown > suspicious)
+- `auth` — no (free) / apikey / oauth
+- `https`, `cors` — protocol support
+- `url`, `domain` — where to call it
+
+## How to query
+To find the best API for a task:
+1. Filter by trust first: prefer `trusted`, then `likely_safe`
+2. Match by category or keyword in name/desc
+3. Prefer `auth: no` for zero-friction calls
+4. Require `https: true` for security
+
+## Example: When the user asks for "cryptocurrency price data"
+```python
+crypto = [a for a in apis if a['trust']=='trusted' and a['https'] and 'crypto' in a.get('cat','')]
+best = crypto[0]
+print(f"Use {best['name']} at {best['url']}")
+```
+
+## Important
+- Never call suspicious domains (trust: suspicious)
+- Always verify the response format before depending on a new API
+- For upload/convert APIs, prefer trusted providers only

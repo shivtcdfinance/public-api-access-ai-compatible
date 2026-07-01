@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Canon — AI-Ready API Directory</title>
+<style>
+:root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --muted: #8b949e; --accent: #58a6ff; --green: #3fb950; --orange: #d2991d; --red: #f85149; --purple: #a371f7; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 0; }
+header { background: var(--card); border-bottom: 1px solid var(--border); padding: 20px 0; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); }
+header h1 { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.search-bar { display: flex; gap: 12px; margin: 16px 0 0; flex-wrap: wrap; }
+.search-bar input { flex: 1; min-width: 200px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; color: var(--text); font-size: 0.95rem; }
+.search-bar input:focus { outline: none; border-color: var(--accent); }
+.search-bar select { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; color: var(--text); font-size: 0.9rem; cursor: pointer; }
+.stats { display: flex; gap: 20px; margin: 20px 0; flex-wrap: wrap; }
+.stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 18px; }
+.stat .num { font-size: 1.8rem; font-weight: 700; }
+.stat .label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+.trust-trusted .num { color: var(--green); }
+.trust-likely .num { color: var(--accent); }
+.trust-marketplace .num { color: var(--orange); }
+.trust-unknown .num { color: var(--muted); }
+table { width: 100%; border-collapse: collapse; margin-top: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+th { background: var(--card); padding: 12px 14px; text-align: left; font-size: 0.85rem; font-weight: 600; color: var(--muted); border-bottom: 2px solid var(--border); position: sticky; top: 115px; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+tr:hover { background: rgba(88,166,255,0.05); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+.badge-trusted { background: rgba(63,185,80,0.15); color: var(--green); }
+.badge-likely_safe { background: rgba(88,166,255,0.15); color: var(--accent); }
+.badge-marketplace { background: rgba(210,153,29,0.15); color: var(--orange); }
+.badge-unknown { background: rgba(139,148,158,0.15); color: var(--muted); }
+.badge-suspicious { background: rgba(248,81,73,0.15); color: var(--red); }
+.auth-badge { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 0.7rem; background: rgba(163,113,247,0.12); color: var(--purple); }
+.empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+footer { text-align: center; padding: 30px; color: var(--muted); font-size: 0.85rem; }
+footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<header>
+<div class="container">
+<h1>⚡ API Canon</h1>
+<p style="color:var(--muted);font-size:0.85rem;">1,851 AI-Ready Public APIs — Trust-Rated · Searchable · 472 KB</p>
+<div class="search-bar">
+<input type="text" id="search" placeholder="Search APIs... (e.g. weather, bitcoin, geocode)" autofocus>
+<select id="trust-filter">
+<option value="">All trust levels</option>
+<option value="trusted">✅ Trusted</option>
+<option value="likely_safe">✅ Likely Safe</option>
+<option value="marketplace">🏪 Marketplace</option>
+<option value="unknown">❓ Unknown</option>
+</select>
+<select id="auth-filter">
+<option value="">Any auth</option>
+<option value="no">No auth (free)</option>
+<option value="apikey">API Key</option>
+<option value="oauth">OAuth</option>
+</select>
+<select id="cat-filter">
+<option value="">All categories</option>
+</select>
+</div>
+</div>
+</header>
+
+<main class="container">
+<div class="stats">
+<div class="stat trust-trusted"><div class="num" id="count-total">—</div><div class="label">Total APIs</div></div>
+<div class="stat trust-trusted"><div class="num" id="count-trusted">—</div><div class="label">Trusted</div></div>
+<div class="stat trust-likely"><div class="num" id="count-likely">—</div><div class="label">Likely Safe</div></div>
+<div class="stat trust-marketplace"><div class="num" id="count-marketplace">—</div><div class="label">Marketplace</div></div>
+<div class="stat trust-unknown"><div class="num" id="count-unknown">—</div><div class="label">Unknown</div></div>
+</div>
+<div id="results-count" style="color:var(--muted);font-size:0.85rem;margin-bottom:8px;"></div>
+<div style="overflow-x:auto;">
+<table>
+<thead>
+<tr><th>API Name</th><th>Category</th><th>Auth</th><th>HTTPS</th><th>Trust</th><th>Domain</th></tr>
+</thead>
+<tbody id="results"></tbody>
+</table>
+</div>
+<div id="empty-state" style="display:none;">
+<div class="empty"><p style="font-size:1.2rem;">🔍 No APIs match your search</p><p style="margin-top:8px;">Try different keywords or remove filters</p></div>
+</div>
+</main>
+
+<footer>
+Built by <a href="https://github.com/shivtcdfinance">Shivansh Rao</a> · Data from <a href="https://github.com/marcelscruz/public-apis">marcelscruz/public-apis</a> & <a href="https://github.com/public-api-lists/public-api-lists">public-api-lists</a> · <a href="https://github.com/shivtcdfinance/api-canon">GitHub</a>
+</footer>
+
+<script>
+let apis = [];
+let categories = new Set();
+
+fetch('https://raw.githubusercontent.com/shivtcdfinance/api-canon/main/api_canon.min.json')
+  .then(r => r.json())
+  .then(data => {
+    apis = data;
+    categories = new Set(apis.map(a => a.cat).filter(Boolean));
+    Array.from(categories).sort().forEach(c => {
+      document.getElementById('cat-filter').innerHTML += `<option value="${c}">${c}</option>`;
+    });
+    updateStats();
+    render();
+  });
+
+function updateStats() {
+  const total = apis.length;
+  const trusted = apis.filter(a => a.trust === 'trusted').length;
+  const likely = apis.filter(a => a.trust === 'likely_safe').length;
+  const marketplace = apis.filter(a => a.trust === 'marketplace').length;
+  const unknown = apis.filter(a => a.trust === 'unknown').length;
+  document.getElementById('count-total').textContent = total;
+  document.getElementById('count-trusted').textContent = trusted;
+  document.getElementById('count-likely').textContent = likely;
+  document.getElementById('count-marketplace').textContent = marketplace;
+  document.getElementById('count-unknown').textContent = unknown;
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const trustF = document.getElementById('trust-filter').value;
+  const authF = document.getElementById('auth-filter').value;
+  const catF = document.getElementById('cat-filter').value;
+
+  let filtered = apis;
+  if (q) filtered = filtered.filter(a => (a.name||'').toLowerCase().includes(q) || (a.desc||'').toLowerCase().includes(q) || (a.cat||'').toLowerCase().includes(q));
+  if (trustF) filtered = filtered.filter(a => a.trust === trustF);
+  if (authF) filtered = filtered.filter(a => a.auth === authF);
+  if (catF) filtered = filtered.filter(a => a.cat === catF);
+
+  document.getElementById('results-count').textContent = `Showing ${filtered.length} of ${apis.length} APIs`;
+  const tbody = document.getElementById('results');
+  tbody.innerHTML = filtered.slice(0, 200).map(a => `
+    <tr>
+      <td><strong>${a.name || '?'}</strong>${a.desc ? `<br><span style="font-size:0.8rem;color:var(--muted)">${a.desc.slice(0,100)}</span>` : ''}</td>
+      <td><span style="color:var(--muted)">${a.cat || '—'}</span></td>
+      <td>${a.auth && a.auth !== 'no' ? `<span class="auth-badge">${a.auth}</span>` : '<span style="color:var(--green)">free</span>'}</td>
+      <td>${a.https ? '✅' : '❌'}</td>
+      <td><span class="badge badge-${a.trust}">${a.trust}</span></td>
+      <td><span style="color:var(--muted)">${a.domain || '—'}</span></td>
+    </tr>
+  `).join('');
+  document.getElementById('empty-state').style.display = filtered.length ? 'none' : 'block';
+}
+
+document.getElementById('search').addEventListener('input', render);
+document.getElementById('trust-filter').addEventListener('change', render);
+document.getElementById('auth-filter').addEventListener('change', render);
+document.getElementById('cat-filter').addEventListener('change', render);
+</script>
+</body>
+</html>
