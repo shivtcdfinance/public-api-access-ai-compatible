@@ -6,11 +6,11 @@
       "public-api-lists/public-api-lists"
     ],
     "generated": "2026-07-01",
-    "total_apis": 1851,
+    "total_apis": 1852,
     "trusted_count": 252,
     "likely_safe_count": 61,
     "marketplace_count": 75,
-    "unknown_count": 1453,
+    "unknown_count": 1454,
     "suspicious_count": 10
   },
   "apis": [
@@ -22225,6 +22225,18 @@
       "cors": "no",
       "trust": "unknown",
       "source": "public-api-lists"
+    },
+    {
+      "name": "Xquik",
+      "desc": "X data API for tweet search, profiles, followers, media, monitors, extraction jobs, webhooks, MCP, and SDK access",
+      "cat": "Social",
+      "domain": "xquik.com",
+      "url": "https://xquik.com/openapi.json",
+      "auth": "apikey",
+      "https": true,
+      "cors": "unknown",
+      "trust": "unknown",
+      "source": "community"
     }
   ],
   "index": {
@@ -23842,7 +23854,8 @@
         "Full Contact",
         "MySocialApp",
         "PWRTelegram bot",
-        "The Colony"
+        "The Colony",
+        "Xquik"
       ],
       "sports & fitness": [
         "American Football Highlights API",
@@ -25724,7 +25737,8 @@
         "Trakt",
         "DWD API",
         "Stormglass",
-        "Weather Hacks"
+        "Weather Hacks",
+        "Xquik"
       ],
       "trusted": [
         "Cohere",
@@ -26975,7 +26989,8 @@
         "CarAPI",
         "Trakt",
         "NOAA Climate Data",
-        "Stormglass"
+        "Stormglass",
+        "Xquik"
       ],
       "yes": [
         "AI/ML API",
@@ -29630,7 +29645,8 @@
         "openSenseMap",
         "QWeather",
         "RainViewer",
-        "Visual Crossing"
+        "Visual Crossing",
+        "Xquik"
       ],
       "javascript": [
         "Face-api.js",
@@ -29719,7 +29735,8 @@
       "mcp": [
         "HOL Registry Broker",
         "USPTO Trademark",
-        "CoinStats"
+        "CoinStats",
+        "Xquik"
       ],
       "servers": [
         "HOL Registry Broker",
@@ -33494,7 +33511,8 @@
         "Instagram",
         "Kakao",
         "Line",
-        "NAVER"
+        "NAVER",
+        "Xquik"
       ],
       "media": [
         "Steem",
@@ -48174,6 +48192,30 @@
       ],
       "condition": [
         "Yandex.Weather"
+      ],
+      "xquik": [
+        "Xquik"
+      ],
+      "tweet": [
+        "Xquik"
+      ],
+      "profiles": [
+        "Xquik"
+      ],
+      "followers": [
+        "Xquik"
+      ],
+      "monitors": [
+        "Xquik"
+      ],
+      "extraction": [
+        "Xquik"
+      ],
+      "webhooks": [
+        "Xquik"
+      ],
+      "sdk": [
+        "Xquik"
       ]
     }
   }
