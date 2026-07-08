@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "total": 1850,
+    "total": 1851,
     "trusted": 252,
     "updated": "2026-07-01",
     "sources": [
@@ -22208,6 +22208,18 @@
       "cors": "no",
       "trust": "unknown",
       "source": "public-api-lists"
+    },
+    {
+      "name": "Xquik",
+      "desc": "X data API for tweet search, profiles, followers, media, monitors, extraction jobs, webhooks, MCP, and SDK access",
+      "cat": "Social",
+      "domain": "xquik.com",
+      "url": "https://xquik.com/openapi.json",
+      "auth": "apikey",
+      "https": true,
+      "cors": "unknown",
+      "trust": "unknown",
+      "source": "community"
     }
   ],
   "index": {
@@ -24197,7 +24209,8 @@
         "Full Contact",
         "MySocialApp",
         "PWRTelegram bot",
-        "The Colony"
+        "The Colony",
+        "Xquik"
       ],
       "sports & fitness": [
         "CricData",
@@ -25785,7 +25798,8 @@
         "Trakt",
         "DWD API",
         "Stormglass",
-        "Weather Hacks"
+        "Weather Hacks",
+        "Xquik"
       ],
       "trusted": [
         "Cohere",
@@ -27035,7 +27049,8 @@
         "CarAPI",
         "Trakt",
         "NOAA Climate Data",
-        "Stormglass"
+        "Stormglass",
+        "Xquik"
       ],
       "yes": [
         "AI/ML API",
